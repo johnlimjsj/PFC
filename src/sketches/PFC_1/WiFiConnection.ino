@@ -1,37 +1,47 @@
 
-void connectWiFi(const char* ssid, const char* password){
-  Serial.begin(9600);
+void connectWiFi(WifiAP wifiap){
   delay(10);
-  WiFi.begin(ssid, password);
-
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(wifiap.ssid, wifiap.password);
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    delay(500); Serial.print(".");
   }
-  Serial.println("");
-  Serial.println("WiFi connected");
+  Serial.println("\nWiFi connected");
   ThingSpeak.begin(client);
 }
 
-void sendDataToServer(String postStr){
+void sendDataToServer(String url){
+  delay(500);
   if (client.connect(SERVER,80)) {
-    client.print("POST /update HTTP/1.1\n");
-    client.print("Host: api.thingspeak.com\n");
-    client.print("Connection: close\n");
-    client.print("Content-Type: application/x-www-form-urlencoded\n");
-    client.print("Content-Length: ");
-    client.print(postStr.length());
-    client.print("\n\n");
-    client.print(postStr);
-    Serial.println(postStr);
+    PRINTLN("connected to " + url);   
+    client.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + SERVER + "\r\n" + "Connection: close\r\n\r\n"); // keep-alive    
   }
-  client.stop();
-  Serial.println("Waiting…");
-  delay(2000);
+  unsigned long timeout = millis();
+  while (client.available() == 0) {
+    if (millis() - timeout > 5000) {
+      Serial.println(">>> Client Timeout !");
+      client.stop();
+      return;
+    }
+  }
 }
 
-String getCommandFromServer(){
+String getJsonFromServer(String url){
+  sendDataToServer(url);
+  String jsonResponse = "";
+  String section="header";
   
-  return "command";
+  while(client.available()){
+    String line = client.readStringUntil('\r');
+    if(line.substring(1,3) == "{\""){
+      String result = line.substring(1);
+      jsonResponse += result;
+    }
+  }
+
+  return jsonResponse;
 }
+
+
+
 
