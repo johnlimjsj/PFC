@@ -10,6 +10,13 @@ void connectWiFi(WifiAP wifiap){
   ThingSpeak.begin(client);
 }
 
+int getRequest(String url){
+  char kPath[url.length()];
+  url.toCharArray(kPath, url.length());
+  int err = http.get(SERVER, kPath); 
+  return err;     
+}
+
 void sendDataToServer(String url){
   delay(500);
   if (client.connect(SERVER,80)) {
@@ -42,6 +49,53 @@ String getJsonFromServer(String url){
   return jsonResponse;
 }
 
+/*
+String getResponse(String url){
+  String response = "";
+  char kPath[url.length()];
+  url.toCharArray(kPath, url.length());
+  int err = http.get(SERVER, kPath); 
+  if (err == 0)
+  {
+    err = http.responseStatusCode();
+    PRINTLN(err);
+    if (err >= 0)
+    {
+      PRINTLN(err);
+      err = http.skipResponseHeaders();
+      if (err >= 0)
+      {
+        int bodyLen = http.contentLength();
+        unsigned long timeoutStart = millis();
+        while ( (http.connected() || http.available()) && ((millis() - timeoutStart) < NETWORK_TIMEOUT) )
+        {
+            if (http.available())
+            {
+                response += http.read();
+                PRINTLN("response:");
+                PRINTLN(response);             
+                bodyLen--;
+                // We read something, reset the timeout counter
+                timeoutStart = millis();
+            }
+            else
+            {
+                // We haven't got any data, so let's pause to allow some to arrive
+                delay(NETWORK_DELAY);
+            }
+        }
+      }
+    }
+  }
+//  String response = "";
+//  if (http.skipResponseHeaders() >= 0){
+//    while(http.available()){ response += http.read(); }
+//  }
+  
+  
+  return response;
+}
+*/
 
 
 

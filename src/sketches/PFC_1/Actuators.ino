@@ -24,9 +24,8 @@ void getSettingsFromServer(){
   String jsonResponse = getJsonFromServer(PATH_GET_SETTINGS);
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
-    
-    
-    AutoWatering.desired = root["fields"]["target_moisture"];
+
+    AutoWatering.desired = root["fields"][AutoWatering.fieldName];
     AutoWatering.threshold = AutoWatering.desired * 0.6;
     
     Serial.println(AutoWatering.desired);
@@ -34,6 +33,26 @@ void getSettingsFromServer(){
   }
 }
 
+bool isManualOverride(){
+  String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
+  if(jsonResponse != ""){
+    JsonObject &root = getParsedJsonObject(jsonResponse);
+    return root["fields"][AutoWatering.fieldName];
+  }
+  return false;
+}
+
+void manualActuateFromServer(){
+  String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
+  if(jsonResponse != ""){
+    JsonObject &root = getParsedJsonObject(jsonResponse);
+    bool pumpOn = root["fields"][AutoWatering.fieldName];
+    digitalWrite(Pump.pin, pumpOn);
+    
+    bool lightOn = root["fields"][AutoWatering.fieldName];
+    digitalWrite(Led.pin, lightOn);
+  }
+}
 
 
 void readAndActuate(String jsonResp, String actuatorName){
@@ -54,6 +73,7 @@ void readAndActuate(String jsonResp, String actuatorName){
 
 void controlActuators(){
   String getStr = "/user/panel/update/Alvin-Chew/17e373405989a62/";
+  String status;
   String jsonResponse = getJsonFromServer(getStr);
 //  readAndActuate(jsonResponse, "pump");
   

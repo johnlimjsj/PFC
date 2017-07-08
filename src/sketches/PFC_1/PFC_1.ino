@@ -1,6 +1,7 @@
 #include "PFC.h"
 
 WiFiClient client;
+HttpClient http(client);
 DHT dht(DHTPIN, DHTTYPE);
 I2CSoilMoistureSensor soilSensor(0x21);
 
@@ -13,22 +14,18 @@ void setup() {
 }
 
 void loop() {
-
-  
-  Feeder = periodControl(Feeder);
-  Pump = periodControl(Pump);
-  Led = periodControl(Led);
-  WeMos = periodControl(WeMos);
-  if (WeMos.isOn) { 
-    sendSensorReadingToServer(); 
-    getSensorReadings(); 
+  if (isManualOverride()){
+    manualActuateFromServer();
   }
-  Serial.print("Feeder: ");
-  Serial.println(Feeder.isOn);
+  else{
+    Feeder = periodControl(Feeder);
+    Pump = periodControl(Pump);
+    Led = periodControl(Led);
+    
+    sendSensorReadingToServer();
+    getSettingsFromServer();  
+  }
   
-  //sendSensorReadingToServer();
-  //getSettingsFromServer();
-  delay(1000);
   
 }
 

@@ -32,5 +32,20 @@ double filterReading(Sensor s, double rawReading){
   return filtered;
 }
 
+String generateSensorGetStr(){
+  getSensorReadings();
+  String moisture = (String)Moisture.reading;
+  String light = (String)Light.reading;
+  String temp = (String)Temp.reading;
+  String ph = (String)PH.reading;
+  String pumpIsOn = (String)Pump.isOn;
+  String feederIsOn = (String)Feeder.isOn;
+  String parameters = "?moisture=" + moisture + "&ph=" + ph + "&light=" + light + "&temp=" + temp + "&pump=" + pumpIsOn + "&feed=" + feederIsOn;
+  String getStr = PATH + parameters;
+  return getStr;
+}
 
-
+void sendSensorReadingToServer(){  
+  String getStr = generateSensorGetStr();
+  SendToServer = sendRequestPerTimeInterval(SendToServer, getStr);
+}
