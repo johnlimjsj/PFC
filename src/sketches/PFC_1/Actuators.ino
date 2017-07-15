@@ -4,13 +4,13 @@ Actuator periodControl(Actuator a){
   
   if(currTime - a.prevTime < a.period){
     if (currTime - a.prevTime < onPeriod){
-      //Serial.println("turning ON");
-      digitalWrite(a.pin, HIGH);
+      //PRINTLN("turning ON");
+      digitalWrite(a.pin, a.activeHigh);
       a.isOn = true;
     }
     else{
-      //Serial.println("turning OFF");
-      digitalWrite(a.pin, LOW);
+      //PRINTLN("turning OFF");
+      digitalWrite(a.pin, !a.activeHigh);
       a.isOn = false;
     }
   }
@@ -25,7 +25,7 @@ void getSettingsFromServer(){
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
 
-    AutoWatering.desired = root["fields"][AutoWatering.fieldName];
+    AutoWatering.desired = root[BASE_JSON][AutoWatering.fieldName];
     AutoWatering.threshold = AutoWatering.desired * 0.6;
     
     Serial.println(AutoWatering.desired);
@@ -37,7 +37,8 @@ bool isManualOverride(){
   String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
-    return root["fields"][AutoWatering.fieldName];
+    
+    return root[BASE_JSON]["set_manual_override"];
   }
   return false;
 }
@@ -46,11 +47,11 @@ void manualActuateFromServer(){
   String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
-    bool pumpOn = root["fields"][AutoWatering.fieldName];
+    bool pumpOn = root[BASE_JSON][Pump.fieldName];
     digitalWrite(Pump.pin, pumpOn);
     
-    bool lightOn = root["fields"][AutoWatering.fieldName];
-    digitalWrite(Led.pin, lightOn);
+    bool ledOn = root[BASE_JSON][Led.fieldName];
+    digitalWrite(Led.pin, ledOn);
   }
 }
 
@@ -72,26 +73,24 @@ void readAndActuate(String jsonResp, String actuatorName){
 
 
 void controlActuators(){
-  String getStr = "/user/panel/update/Alvin-Chew/17e373405989a62/";
-  String status;
-  String jsonResponse = getJsonFromServer(getStr);
+  String jsonResponse = getJsonFromServer(PATH_UPDATE);
 //  readAndActuate(jsonResponse, "pump");
   
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
     String retJson;
     
-    const char* user = root["fields"]["target_moisture"];
+    const char* user = root[BASE_JSON][Pump.fieldName];
     PRINTLN(user);
 
     
-        
-//    if (strcmp(user, "2") == 0) {
-//      digitalWrite(LED_PIN, LOW);
-//      PRINTLN("LED ON");
-//    }
+    /*    
+    if (strcmp(user, "2") == 0) {
+      digitalWrite(LED_PIN, LOW);
+      PRINTLN("LED ON");
+    }
 
-    /*
+    
     if (strcmp(r["led"], "on") == 0) {
       digitalWrite(LED_PIN, LOW);
       PRINTLN("LED ON");

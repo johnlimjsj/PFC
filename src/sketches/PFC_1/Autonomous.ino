@@ -2,11 +2,11 @@
 void autoWatering(){
   double currentMoisture = Moisture.reading;
   if (currentMoisture < AutoWatering.threshold ) { 
-    digitalWrite(Pump.pin, HIGH);
+    digitalWrite(Pump.pin, Pump.activeHigh);
     Pump.isOn = true;
   }
   if (currentMoisture > AutoWatering.desired ) {
-    digitalWrite(Pump.pin, LOW);
+    digitalWrite(Pump.pin, !Pump.activeHigh);
     Pump.isOn = false;
   }
 }

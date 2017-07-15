@@ -26,34 +26,4 @@ JsonObject& getParsedJsonObject(String jsonStr){
   return json_parsed;
 }
 
-ClientSettings sendRequestPerTimeInterval(ClientSettings cs, String getStr){
-  unsigned long currTime = millis();
-  
-  // check if within time interval
-  if(currTime - cs.prevTime < cs.period){
-    
-    if (currTime - cs.prevTime < cs.timeout && !cs.currentAttemptSuccess ){
-      
-      // attempt to send. if it was successful, then do not send again
-      int err = getRequest(getStr);
-      if (err == 0){
-        err = http.responseStatusCode();
-        if (err == 200) { 
-          Serial.println("success");
-          cs.currentAttemptSuccess = true; 
-        }
-      }
-      http.stop();
-    }
-    else{
-      // do not send
-      Serial.println("not sending");
-    }
-  }
-  else {
-    cs.currentAttemptSuccess = false;
-    cs.prevTime += cs.period;
-  }
-  return cs;
-}
 
