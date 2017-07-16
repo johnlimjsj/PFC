@@ -48,10 +48,10 @@ void manualActuateFromServer(){
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
     bool pumpOn = root[BASE_JSON][Pump.fieldName];
-    digitalWrite(Pump.pin, pumpOn);
+    digitalWrite(Pump.pin, pumpOn ? Pump.activeHigh : !Pump.activeHigh);
     
     bool ledOn = root[BASE_JSON][Led.fieldName];
-    digitalWrite(Led.pin, ledOn);
+    digitalWrite(Led.pin, ledOn ? Led.activeHigh : !Led.activeHigh);
   }
 }
 
