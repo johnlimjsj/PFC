@@ -15,16 +15,15 @@ void setup() {
 
 void loop() {
   if (isManualOverride()){
-    Serial.println("Manual mode");
     manualActuateFromServer();
   }
   else{
-    Serial.println("Auto mode");
     Feeder = periodControl(Feeder);
     Pump = periodControl(Pump);
     Led = periodControl(Led);
+    
+    sendSensorReadingToServer();
     getSettingsFromServer();  
   }
-  sendSensorReadingToServer();  
 }
 

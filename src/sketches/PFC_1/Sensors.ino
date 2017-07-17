@@ -40,7 +40,7 @@ String generateSensorGetStr(){
   String ph = (String)PH.reading;
   String pumpIsOn = (String)Pump.isOn;
   String feederIsOn = (String)Feeder.isOn;
-  String parameters = "?moisture=" + moisture + "&ph=" + ph + "&light=" + light + "&temp=" + temp + "&pump=" + pumpIsOn;
+  String parameters = "?moisture=" + moisture + "&ph=" + ph + "&light=" + light + "&temp=" + temp + "&pump=" + pumpIsOn + "&feed=" + feederIsOn;
   String getStr = PATH_UPDATE + parameters;
   PRINTLN(getStr);
   return getStr;
