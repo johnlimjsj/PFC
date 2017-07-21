@@ -46,7 +46,7 @@ String generateSensorGetStr(){
   return getStr;
 }
 
-void sendSensorReadingToServer(){  
+void sendSensorReadingToServer(ClientSettings cs){  
   String getStr = generateSensorGetStr();
-  SendToServer = sendRequestPerTimeInterval(SendToServer, getStr);
+  SendToServer = sendRequestPerTimeInterval(cs, getStr);
 }

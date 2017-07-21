@@ -16,13 +16,14 @@ void setup() {
 void loop() {
   if (isManualOverride()){
     manualActuateFromServer();
+    sendSensorReadingToServer(SendToServerFast);
   }
   else{
     Feeder = periodControl(Feeder);
     Pump = periodControl(Pump);
     Led = periodControl(Led);
     
-    sendSensorReadingToServer();
+    sendSensorReadingToServer(SendToServer);
     getSettingsFromServer();  
   }
 }
