@@ -96,7 +96,8 @@ struct ClientSettings{
 WifiAP AlvinWifi = {.ssid = "HUAT AH", .password = "AAAA-888-888" };
 WifiAP JohnWifi = {.ssid = "dlink-3160_EXT", .password = "zdgwj81446" };
 WifiAP AlvinHotSpot = {.ssid = "Chewy", .password = "hengchew" };
-WifiAP ZulWifi = {.ssid = "Chewy", .password = "hengchew" };
+WifiAP ZulWifi = {.ssid = "3MobileWiFi-2537", .password = "10119784" };
+WifiAP MakerWifi = {.ssid = "maker_fare exhibitor", .password = "2017mfex" };
 
 Sensor Moisture = {.verbose="moisture", .reading=NULL, .minInput=236, .maxInput=655, .minOutput=0, .maxOutput=100, .runavg = RunningAverage(5)};
 Sensor Light    = {.verbose="light", .reading=NULL, .minInput=236, .maxInput=60000, .minOutput=0, .maxOutput=100, .runavg = RunningAverage(5)};
@@ -105,12 +106,12 @@ Sensor Temp     = {.verbose="temp", .reading=NULL, .minInput=0, .maxInput=100, .
 Sensor PH       = {.verbose="ph", .reading=NULL, .minInput=0, .maxInput=1023, .minOutput=0, .maxOutput=14, .runavg = RunningAverage(5)};
 
 Actuator Pump   = {.verbose="pumpIsOn", .pin=WATERPUMP_PIN, .period=3600000, .dutyCycle=0.66, .prevTime=0, .isOn=false, .activeHigh=false, .fieldName="set_pump"};
-Actuator Led    = {.verbose="ledIsOn", .pin=LED_PIN, .period=3600000, .dutyCycle=0.33, .prevTime=0, .isOn=false, .activeHigh=true, .fieldName="set_LED"};
+Actuator Led    = {.verbose="ledIsOn", .pin=LED_PIN, .period=3600000, .dutyCycle=0.33, .prevTime=0, .isOn=false, .activeHigh=false, .fieldName="set_LED"};
 Actuator Fan    = {.verbose="fanIsOn", .pin=FAN_PIN, .period=100000, .dutyCycle=0.5, .prevTime=0, .isOn=false, .activeHigh=true, .fieldName="fan_state"};
 Actuator Feeder = {.verbose="feederIsOn", .pin=FEEDER_PIN, .period=86400000, .dutyCycle=0.0005, .prevTime=0, .isOn=false, .activeHigh=true, .fieldName="feeder_state"};
 
 ClientSettings SendToServer = { .period=900000, .timeout = 300000, .prevTime=0, .currentAttemptSuccess=false, .prevAttemptSuccess=false};
-ClientSettings SendToServerFast = { .period=3000, .timeout = 3000, .prevTime=0, .currentAttemptSuccess=false, .prevAttemptSuccess=false};
+ClientSettings SendToServerFast = { .period=5000, .timeout = 5000, .prevTime=0, .currentAttemptSuccess=false, .prevAttemptSuccess=false};
 
 
 Auto AutoWatering = {.desired=60, .threshold=40, .fieldName="target_moisture" };

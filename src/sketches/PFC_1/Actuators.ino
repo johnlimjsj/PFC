@@ -52,6 +52,11 @@ void manualActuateFromServer(){
     
     bool ledOn = root[BASE_JSON][Led.fieldName];
     digitalWrite(Led.pin, ledOn ? Led.activeHigh : !Led.activeHigh);
+
+    String testpumpstr = "pump state: " + pumpOn;
+    String ledpumpstr = "led state: " + ledOn;
+    
+    Serial.println(testpumpstr + ledpumpstr);
   }
 }
 

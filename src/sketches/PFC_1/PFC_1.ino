@@ -10,13 +10,15 @@ void setup() {
   dht.begin();
   soilSensorInit();
   initActuatorPins();
-  connectWiFi(AlvinWifi);
+  connectWiFi(MakerWifi);
 }
 
 void loop() {
+  
   if (isManualOverride()){
     manualActuateFromServer();
-    sendSensorReadingToServer(SendToServerFast);
+    String getStr = generateSensorGetStr();
+    sendDataToServer(getStr);
   }
   else{
     Feeder = periodControl(Feeder);
@@ -24,7 +26,9 @@ void loop() {
     Led = periodControl(Led);
     
     sendSensorReadingToServer(SendToServer);
-    getSettingsFromServer();  
+    //getSettingsFromServer();  
   }
+  
+  
 }
 
