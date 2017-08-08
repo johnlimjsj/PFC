@@ -21,7 +21,7 @@ Actuator periodControl(Actuator a){
 }
 
 void getSettingsFromServer(){
-  String jsonResponse = getJsonFromServer(PATH_GET_SETTINGS);
+  String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathSettings());
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
 
@@ -34,7 +34,7 @@ void getSettingsFromServer(){
 }
 
 bool isManualOverride(){
-  String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
+  String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathManualSettings());
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
     
@@ -44,7 +44,7 @@ bool isManualOverride(){
 }
 
 void manualActuateFromServer(){
-  String jsonResponse = getJsonFromServer(PATH_GET_MANUAL_SETTINGS);
+  String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathManualSettings());
   if(jsonResponse != ""){
     JsonObject &root = getParsedJsonObject(jsonResponse);
     bool pumpOn = root[BASE_JSON][Pump.fieldName];
@@ -53,8 +53,8 @@ void manualActuateFromServer(){
     bool ledOn = root[BASE_JSON][Led.fieldName];
     digitalWrite(Led.pin, ledOn ? Led.activeHigh : !Led.activeHigh);
 
-    String testpumpstr = "pump state: " + pumpOn;
-    String ledpumpstr = "led state: " + ledOn;
+    String testpumpstr = "pump state: " + (String)pumpOn;
+    String ledpumpstr = ", led state: " + (String)ledOn;
     
     Serial.println(testpumpstr + ledpumpstr);
   }
@@ -76,54 +76,10 @@ void readAndActuate(String jsonResp, String actuatorName){
 
 
 
-
-void controlActuators(){
-  String jsonResponse = getJsonFromServer(PATH_UPDATE);
-//  readAndActuate(jsonResponse, "pump");
-  
-  if(jsonResponse != ""){
-    JsonObject &root = getParsedJsonObject(jsonResponse);
-    String retJson;
-    
-    const char* user = root[BASE_JSON][Pump.fieldName];
-    PRINTLN(user);
-
-    
-    /*    
-    if (strcmp(user, "2") == 0) {
-      digitalWrite(LED_PIN, LOW);
-      PRINTLN("LED ON");
-    }
-
-    
-    if (strcmp(r["led"], "on") == 0) {
-      digitalWrite(LED_PIN, LOW);
-      PRINTLN("LED ON");
-    }
-    else{
-      digitalWrite(LED_PIN, HIGH);
-      PRINTLN("LED OFF");
-    }
-
-    if (strcmp(r["pump"], "on") == 0) {
-      digitalWrite(WATERPUMP_PIN, HIGH);
-      PRINTLN("PUMP ON");
-    }
-    else{
-      digitalWrite(WATERPUMP_PIN, LOW);
-      PRINTLN("PUMP OFF");
-    }
-
-    */
-  }  
-  
-
-}
-
 void initActuatorPins(){
-  pinMode(LED_PIN, OUTPUT);  
-  pinMode(WATERPUMP_PIN, OUTPUT); 
-  pinMode(FEEDER_PIN, OUTPUT); 
-  pinMode(FAN_PIN, OUTPUT);  
+  pinMode(Led.pin, OUTPUT);  
+  pinMode(Pump.pin, OUTPUT); 
+  pinMode(Feeder.pin, OUTPUT); 
+  pinMode(Fan.pin, OUTPUT);  
 }
 

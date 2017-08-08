@@ -42,11 +42,13 @@ String generateSensorGetStr(){
   String feederIsOn = (String)Feeder.isOn;
   String parameters = "?moisture=" + moisture + "&ph=" + ph + "&light=" + light + "&temp=" + temp + "&pump=" + pumpIsOn + "&feed=" + feederIsOn;
   String getStr = PATH_UPDATE + parameters;
+  Serial.print("generate sensor get string");
   PRINTLN(getStr);
   return getStr;
 }
 
-void sendSensorReadingToServer(ClientSettings cs){  
+void sendSensorReadingToServer(){  
   String getStr = generateSensorGetStr();
-  SendToServer = sendRequestPerTimeInterval(cs, getStr);
+  pfcwifi.sendPeriodicRequest(getStr);
+//  SendToServer = pfcwifi.sendRequestPerTimeInterval(cs, getStr);
 }
