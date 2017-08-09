@@ -6165,18 +6165,20 @@ grid 2.54 mm</description>
 <segment>
 <wire x1="-40.64" y1="-119.38" x2="-35.56" y2="-119.38" width="0.1524" layer="91"/>
 <pinref part="R_GS2" gate="G$1" pin="1"/>
+<pinref part="R_IN2" gate="G$1" pin="2"/>
+<pinref part="FET2" gate="G$1" pin="G"/>
 <wire x1="-35.56" y1="-119.38" x2="-22.86" y2="-119.38" width="0.1524" layer="91"/>
 <junction x="-35.56" y="-119.38"/>
-<pinref part="R_IN2" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="_G3" class="0">
 <segment>
 <wire x1="-40.64" y1="-157.48" x2="-35.56" y2="-157.48" width="0.1524" layer="91"/>
 <pinref part="R_GS3" gate="G$1" pin="1"/>
+<pinref part="R_IN3" gate="G$1" pin="2"/>
+<pinref part="FET3" gate="G$1" pin="G"/>
 <wire x1="-35.56" y1="-157.48" x2="-22.86" y2="-157.48" width="0.1524" layer="91"/>
 <junction x="-35.56" y="-157.48"/>
-<pinref part="R_IN3" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="_B1" class="0">

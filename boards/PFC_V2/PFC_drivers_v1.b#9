@@ -40,7 +40,7 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
@@ -4020,6 +4020,11 @@ Designed by John Lim
 <wire x1="93.98" y1="43.18" x2="96.52" y2="43.18" width="0.254" layer="21"/>
 <wire x1="93.98" y1="36.83" x2="96.52" y2="36.83" width="0.254" layer="21"/>
 <text x="50.165" y="60.325" size="1.27" layer="21" rot="R90">ULN2003AN</text>
+<dimension x1="94.565" y1="74.365" x2="94.445" y2="29.775" x3="104.14" y3="52.07" textsize="1.778" layer="47" dtype="vertical"/>
+<dimension x1="18.365" y1="29.635" x2="94.445" y2="29.775" x3="56.405" y3="17.78" textsize="1.778" layer="47" dtype="horizontal"/>
+<dimension x1="17.235265625" y1="73.231996875" x2="19.494734375" y2="75.498003125" x3="11.42999375" y3="81.27999375" textsize="1.778" layer="47" dtype="diameter"/>
+<dimension x1="17.78" y1="26.67" x2="27.94" y2="77.47" x3="111.76" y3="52.07" textsize="1.778" layer="47" dtype="vertical"/>
+<dimension x1="15.24" y1="74.93" x2="97.79" y2="73.66" x3="56.515" y3="10.16" textsize="1.778" layer="47" dtype="horizontal"/>
 </plain>
 <libraries>
 <library name="transistor-power">

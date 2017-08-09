@@ -6017,6 +6017,7 @@ grid 2.54 mm</description>
 </segment>
 <segment>
 <wire x1="24.13" y1="-11.43" x2="13.97" y2="-11.43" width="0.1524" layer="91"/>
+<label x="13.97" y="-11.43" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VIN" class="0">
@@ -6052,6 +6053,7 @@ grid 2.54 mm</description>
 </segment>
 <segment>
 <wire x1="24.13" y1="-8.89" x2="13.97" y2="-8.89" width="0.1524" layer="91"/>
+<label x="13.97" y="-8.89" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$1" class="0">
