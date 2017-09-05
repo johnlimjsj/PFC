@@ -27,6 +27,22 @@ PFC_INPUT_FIELD inputFields[] = {userInputField, passwordInputField, wifiPasswor
 int numInputs = 3;
 
 // ========= PFC_DISPLAY Class =========================
+/*
+PIN MAPPINGS
+----------------------------
+TFT         <----> WEMOS
+----------------------------
+RST         <----> RESET
+CS          <----> D10/SS
+DC          <----> D9/TX1
+MOSI/T_DIN  <----> D7/MOSI
+SCK/T_CLK   <----> D5/SCK
+LED         <----> 3v3
+MISO        <----> D6/MISO
+T_CS        <----> D2
+T_OUT       <----> NIL
+T_IRQ       <----> D8
+*/
 
 // =========******** Screen Init Stuff *****============
   void PFC_DISPLAY::initDisplay(){
