@@ -4025,6 +4025,10 @@ Designed by John Lim
 <dimension x1="17.235265625" y1="73.231996875" x2="19.494734375" y2="75.498003125" x3="11.42999375" y3="81.27999375" textsize="1.778" layer="47" dtype="diameter"/>
 <dimension x1="17.78" y1="26.67" x2="27.94" y2="77.47" x3="111.76" y3="52.07" textsize="1.778" layer="47" dtype="vertical"/>
 <dimension x1="15.24" y1="74.93" x2="97.79" y2="73.66" x3="56.515" y3="10.16" textsize="1.778" layer="47" dtype="horizontal"/>
+<text x="86.36" y="53.975" size="1.016" layer="21">12V</text>
+<text x="90.17" y="53.975" size="1.016" layer="21">GND</text>
+<wire x1="89.535" y1="55.245" x2="89.535" y2="53.34" width="0.254" layer="21"/>
+<wire x1="89.535" y1="48.895" x2="89.535" y2="50.8" width="0.254" layer="21"/>
 </plain>
 <libraries>
 <library name="transistor-power">
@@ -5654,7 +5658,7 @@ design rules under a new name.</description>
 <attribute name="MF" value="" x="88.9" y="63.5" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="OC_NEWARK" value="18M7116" x="88.9" y="63.5" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="U$1" library="pinhead" package="2X01" value="PINHD-2X1" x="1.27" y="11.43"/>
+<element name="U$1" library="pinhead" package="2X01" value="PINHD-2X1" x="89.535" y="50.8" rot="R270"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -5695,6 +5699,7 @@ design rules under a new name.</description>
 <vertex x="17.78" y="27.94"/>
 <vertex x="16.51" y="29.21"/>
 </polygon>
+<contactref element="U$1" pad="2"/>
 </signal>
 <signal name="VIN">
 <contactref element="X3" pad="2"/>
@@ -5802,6 +5807,8 @@ design rules under a new name.</description>
 <via x="85.09" y="60.96" extent="1-16" drill="0.6" shape="octagon"/>
 <wire x1="63.5" y1="51.65" x2="83.4" y2="51.65" width="0.6096" layer="1"/>
 <wire x1="83.4" y1="51.65" x2="83.82" y2="52.07" width="0.6096" layer="1"/>
+<contactref element="U$1" pad="1"/>
+<wire x1="88.265" y1="52.07" x2="83.82" y2="52.07" width="1.27" layer="1"/>
 <wire x1="90.19" y1="40.64" x2="90.17" y2="40.64" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$1">

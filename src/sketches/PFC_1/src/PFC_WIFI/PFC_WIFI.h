@@ -8,6 +8,7 @@
 #include "../PFC_SETTINGS/PFC_SETTINGS.h"
 
 
+
 class PFC_WIFI 
 {
 
@@ -24,6 +25,7 @@ class PFC_WIFI
 
         bool connectWiFi(String ssid, String password);
         bool scanAndSelectNetwork();
+        String* getAllNetworks(int &n);
         
         int getRequest(String url);
         int getRequestWithStop(String url);
@@ -49,5 +51,7 @@ class PFC_WIFI
 
     
 };
+
+extern PFC_WIFI pfcwifi;
 
 #endif

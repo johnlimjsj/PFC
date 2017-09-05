@@ -3,11 +3,12 @@
 
 #include <WString.h>
 #include "RunningAverage.h"
+#include <EEPROM.h>
 
 
 // Pin Mapping 
-#define D0  3   // TX
-#define D1  1   // RX
+#define D0  3   // RX
+#define D1  1   // TX
 #define D2  16  
 #define D3  5   // SCL
 #define D4  4   // SDA
@@ -31,6 +32,9 @@
 #define DHTPIN D2
 
 #define BASE_JSON "fields"
+
+
+
 
 
 // EEPROM Stuff
@@ -139,6 +143,32 @@ extern struct Auto AutoWatering;
 extern struct Auto AutoPh;
 extern struct Auto AutoLight;
 
+// WRITE
+
+int EEPROM_writeString(int addr_start, String strToWrite);
+extern int EEPROM_writeString(int addr_start, String strToWrite);
+
+void EEPROM_writeString_storeLength(int addr_start, String strToWrite, int len_addr_bit);
+extern void EEPROM_writeString_storeLength(int addr_start, String strToWrite, int len_addr_bit);
+
+
+// READ
+
+String EEPROM_readString(int addr_start, int lengthStr);
+extern String EEPROM_readString(int addr_start, int lengthStr);
+
+String EEPROM_retrieveLen_readString(int addr_start, int len_addr_bit);
+extern String EEPROM_retrieveLen_readString(int addr_start, int len_addr_bit);
+
+
+void EEPROM_clear();
+extern void EEPROM_clear();
+
+void writeSettings(String ssid, String password, String user, String apikey);
+extern void writeSettings(String ssid, String password, String user, String apikey);
+
+void loadSettings(String &ssid, String &password, String &user, String &apikey);
+extern void loadSettings(String &ssid, String &password, String &user, String &apikey);
 
 
 #endif

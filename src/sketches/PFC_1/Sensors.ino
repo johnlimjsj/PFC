@@ -1,5 +1,6 @@
 
 void soilSensorInit(){
+  delay(1000);
   Wire.begin();
   soilSensor.begin();
   delay(1000); // give some time to boot up

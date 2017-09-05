@@ -3,6 +3,7 @@
 
 WiFiClient client2;
 HttpClient http2(client2);
+PFC_WIFI pfcwifi;
 
 bool PFC_WIFI::connectWiFi(String ssid, String password){
 	delay(10);
@@ -62,7 +63,9 @@ void PFC_WIFI::initPathSettings(PathSettings ps, String user, String apiKey){
 
 
 bool PFC_WIFI::scanAndSelectNetwork(){
+  
   int n = WiFi.scanNetworks();
+
   Serial.println("scan done");
   if (n == 0)
     Serial.println("no networks found");
@@ -84,6 +87,18 @@ bool PFC_WIFI::scanAndSelectNetwork(){
     }
   }
   Serial.println("");
+
+
+}
+
+String* PFC_WIFI::getAllNetworks(int &n){          
+  n = WiFi.scanNetworks();
+  String* wifiNetworks = new String[n];
+  
+  for (int i = 0; i < n; i++){
+    wifiNetworks[i] = WiFi.SSID(i);
+  }
+  return wifiNetworks;
 }
 
 

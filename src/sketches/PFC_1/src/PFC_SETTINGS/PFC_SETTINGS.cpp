@@ -53,3 +53,61 @@ struct Actuator Feeder = {.verbose="feederIsOn", .pin=D8, .period=86400000, .dut
 struct Auto AutoWatering = {.desired=60, .threshold=40, .fieldName="target_moisture" };
 struct Auto AutoPh = {.desired=10.4, .threshold=10.4, .fieldName="target_ph" };
 struct Auto AutoLight = {.desired=34, .threshold=34, .fieldName="target_light" };
+
+
+
+
+int EEPROM_writeString(int addr_start, String strToWrite){
+    
+    for(int addr = addr_start; addr < (addr_start + strToWrite.length()); addr ++){
+        
+        EEPROM.write(addr, strToWrite[addr - addr_start]);
+        EEPROM.commit();
+    }
+    return strToWrite.length();
+}
+
+String EEPROM_readString(int addr_start, int lengthStr){
+	String retStr = "";
+	for(int addr = addr_start; addr < (addr_start + lengthStr); addr ++){
+	    int value = EEPROM.read(addr);
+	    retStr += (char)value;
+	}
+	return retStr;
+}
+
+void EEPROM_writeString_storeLength(int addr_start, String strToWrite, int len_addr_bit){
+	EEPROM_writeString(addr_start, strToWrite);
+  	EEPROM.write(len_addr_bit, strToWrite.length());
+  	EEPROM.commit();
+}
+
+String EEPROM_retrieveLen_readString(int addr_start, int len_addr_bit){
+	int len = EEPROM.read(len_addr_bit);
+  	String retStr = EEPROM_readString(addr_start, len);
+  	return retStr;
+}
+
+
+
+void EEPROM_clear(){
+	for (int i = 0 ; i < 256 ; i++) {
+    	EEPROM.write(i, 0);
+    	EEPROM.commit();
+  	}
+}
+
+void writeSettings(String ssid, String password, String user, String apikey){
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_WIFI_SSID, ssid, EEPROM_ADDR_LENGTH_WIFI_SSID);
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_WIFI_PASSWORD, password, EEPROM_ADDR_LENGTH_WIFI_PASSWORD);
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_USER, user, EEPROM_ADDR_LENGTH_USER);
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_API_KEY, apikey, EEPROM_ADDR_LENGTH_API_KEY);
+}
+
+void loadSettings(String &ssid, String &password, String &user, String &apikey){
+	// Retrieve the user particulars from EEPROM on setup  
+	ssid = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_WIFI_SSID, EEPROM_ADDR_LENGTH_WIFI_SSID);
+	password = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_WIFI_PASSWORD, EEPROM_ADDR_LENGTH_WIFI_PASSWORD);
+	user = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_USER, EEPROM_ADDR_LENGTH_USER);
+ 	apikey = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_API_KEY, EEPROM_ADDR_LENGTH_API_KEY);
+}
