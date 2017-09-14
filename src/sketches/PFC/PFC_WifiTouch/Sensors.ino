@@ -1,4 +1,6 @@
 
+// Belongs to Micro
+/*
 void soilSensorInit(){
   delay(1000);
   Wire.begin();
@@ -11,6 +13,7 @@ void soilSensorInit(){
   Serial.println();
 }
 
+// Belongs to Micro
 void getSensorReadings(){
   float rawMoisture = (float)soilSensor.getCapacitance();
   float rawLight = (float)soilSensor.getLight(true);  
@@ -21,7 +24,7 @@ void getSensorReadings(){
   //Humidity.reading = filterReading(Humidity, dht.readHumidity());   
 }
 
-
+// To be deleted. Belongs to Micro
 double filterReading(Sensor s, double rawReading){
 //  double reading = s.get
   s.runavg.addValue(rawReading);
@@ -32,7 +35,9 @@ double filterReading(Sensor s, double rawReading){
   s.reading = filtered;
   return filtered;
 }
-
+*/
+/*
+// Belongs to Wemos. But can also belong to Nano
 String generateSensorGetStr(){
   getSensorReadings();
   String moisture = (String)Moisture.reading;
@@ -48,8 +53,10 @@ String generateSensorGetStr(){
   return getStr;
 }
 
+// Belongs to Wemos
 void sendSensorReadingToServer(){  
   String getStr = generateSensorGetStr();
   pfcwifi.sendPeriodicRequest(getStr);
 //  SendToServer = pfcwifi.sendRequestPerTimeInterval(cs, getStr);
 }
+*/

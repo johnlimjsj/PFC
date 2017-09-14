@@ -10,15 +10,18 @@ void PFC_INPUT_FIELD::drawInput(){
 
 void PFC_INPUT_FIELD::clearText(){
 	_text = "";
+	_numTextCharacters = 0;
+	drawInput();
 }
 
 void PFC_INPUT_FIELD::addTextToEnd(String text){
-	if(_numTextCharacters >= 2*_overflowIndex){
+	if(_numTextCharacters >= _numRows*_overflowIndex){
 		return;
 	}
-
-	_text += text;	
-	_numTextCharacters ++;
+	else{
+		_text += text;	
+		_numTextCharacters ++;
+	}	
 }
 
 void PFC_INPUT_FIELD::subtractTextFromEnd(){
@@ -28,11 +31,11 @@ void PFC_INPUT_FIELD::subtractTextFromEnd(){
 	drawInput();
 }
 
-void PFC_INPUT_FIELD::print(){
+String PFC_INPUT_FIELD::getText(){
+	return _text;
+}
 
-	if(_numTextCharacters >= 2*_overflowIndex){
-		return;
-	}
+void PFC_INPUT_FIELD::print(){
 
 	Serial.println(_text);
 	tft.setTextSize(_textSize);
@@ -66,6 +69,7 @@ bool PFC_INPUT_FIELD::isTouched(){
 
 bool PFC_INPUT_FIELD::focus(bool isFocused){
 	int outlineColor = isFocused ? _outlineColor : _fillColor;
+	// drawInput();
 	_drawOutline(outlineColor);
 }
 
@@ -76,8 +80,8 @@ bool PFC_INPUT_FIELD::contains(int x, int y){
 }
 
 void PFC_INPUT_FIELD::_drawOutline(int color){
-	tft.drawLine(_xPos, _yPos, _widthX, _yPos + 1, color);
-	tft.drawLine(_xPos, _yPos + _widthY, _widthX, _yPos + _widthY - 1, color);
+	tft.drawLine(_xPos, _yPos-1, _widthX, _yPos-1, color);
+	tft.drawLine(_xPos, _yPos + _widthY, _widthX, _yPos + _widthY, color);
 }
 
 bool PFC_INPUT_FIELD::_isOverflow(){

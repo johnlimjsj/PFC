@@ -4,7 +4,7 @@ PFC_Button *keys;
 PFC_Button *keys_shift;
 PFC_Button shiftKey;
 PFC_Button deleteKey;
-PFC_Button spaceKey;
+PFC_Button clearKey;
 PFC_Button doneKey;
 
 
@@ -18,17 +18,17 @@ void PFC_KEYBOARD::init(){
     	"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "|",
     	"A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"",
     	"Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "~", 
-    	"{", "}", "+"};
+    	"{", "}", "+", " "};
 
     String key_values[] = {	
     	"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-",
 	    "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\\",
 	    "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
 	    "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "`",
-	    "[", "]", "="};
+	    "[", "]", "=", " "};
 
 	int keyShortWidth = _width/_numKeysPerRow;
-	int keyLongWidth = keyShortWidth * 1.8;
+	int keyLongWidth = keyShortWidth * 1.7;
 	int keyHeight = _height/_numRows;
 
 	
@@ -55,18 +55,19 @@ void PFC_KEYBOARD::init(){
 		keys_shift[i].initButtonAsKey(SHORT_KEY, key, key, keyHPos, keyVPos, BUTTON_CENTRALIZE);      
     }
     
-    keyHPos += 2*keyShortWidth;
+    keyHPos += 1.5*keyShortWidth;
 
     shiftKey.initButtonAsKey(LONG_KEY, "shift", "shift", keyHPos, keyVPos, BUTTON_CENTRALIZE);
 
     keyHPos += keyLongWidth;
-    spaceKey.initButtonAsKey(LONG_KEY, " ", "space", keyHPos, keyVPos, BUTTON_CENTRALIZE);
+    doneKey.initButtonAsKey(LONG_KEY, "done", "done", keyHPos, keyVPos, BUTTON_CENTRALIZE);
 
     keyHPos += keyLongWidth;
     deleteKey.initButtonAsKey(LONG_KEY, "del", "del", keyHPos, keyVPos, BUTTON_CENTRALIZE);
 
     keyHPos += keyLongWidth;
-    doneKey.initButtonAsKey(LONG_KEY, "done", "done", keyHPos, keyVPos, BUTTON_CENTRALIZE);
+    clearKey.initButtonAsKey(LONG_KEY, "clear", "clear", keyHPos, keyVPos, BUTTON_CENTRALIZE);
+    
 }
 
 void PFC_KEYBOARD::hide(){
@@ -74,14 +75,7 @@ void PFC_KEYBOARD::hide(){
 }
 
 void PFC_KEYBOARD::show(bool isShift){
-
-	
-	
-
 	currKeyboardState = isShift ? SHIFT : SHOWN;
-	
-	Serial.print("Keypad state is shift");
-	Serial.println(isShift);
 
 	PFC_Button *keysptr = isShift ? keys_shift: keys;
 
@@ -91,7 +85,7 @@ void PFC_KEYBOARD::show(bool isShift){
 
     shiftKey.drawButtonAsKey();
     doneKey.drawButtonAsKey();
-    spaceKey.drawButtonAsKey();
+    clearKey.drawButtonAsKey();
     deleteKey.drawButtonAsKey();
 }
 
@@ -113,7 +107,7 @@ String PFC_KEYBOARD::returnPressedKey(){
       	if (val != "") return val;
     }
 
-    val = spaceKey.getValueOnPress();
+    val = clearKey.getValueOnPress();
     if (val!="") return val;
 
     val = deleteKey.getValueOnPress();
@@ -123,4 +117,8 @@ String PFC_KEYBOARD::returnPressedKey(){
     if (val!="") return val;
 
     return "";
+}
+
+bool PFC_KEYBOARD::isHidden(){
+    return (currKeyboardState == HIDDEN) ? true : false;
 }

@@ -7,8 +7,8 @@ char* ROOT_UPDATE = "/user/panel/update/";
 char* ROOT_GET_SETTINGS = "/user/panel/get-configuration/";
 char* ROOT_GET_MANUAL_SETTINGS = "/user/panel/main-view/get-manual-override/";
 
-String API_KEY = "891b2d8285354ed";
-String USER = "johan-kok";
+// String API_KEY = "891b2d8285354ed";
+// String USER = "johan-kok";
 
 String PATH_UPDATE = "/user/panel/update/johan-kok/891b2d8285354ed/";
 String PATH_GET_SETTINGS = "/user/panel/get-configuration/johan-kok/891b2d8285354ed/"; 
@@ -111,3 +111,27 @@ void loadSettings(String &ssid, String &password, String &user, String &apikey){
 	user = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_USER, EEPROM_ADDR_LENGTH_USER);
  	apikey = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_API_KEY, EEPROM_ADDR_LENGTH_API_KEY);
 }
+
+
+void writeWifiSettings(String ssid, String password){
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_WIFI_SSID, ssid, EEPROM_ADDR_LENGTH_WIFI_SSID);
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_WIFI_PASSWORD, password, EEPROM_ADDR_LENGTH_WIFI_PASSWORD);
+}
+
+void loadWifiSettings(String &ssid, String &password){
+	// Retrieve the user particulars from EEPROM on setup  
+	ssid = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_WIFI_SSID, EEPROM_ADDR_LENGTH_WIFI_SSID);
+	password = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_WIFI_PASSWORD, EEPROM_ADDR_LENGTH_WIFI_PASSWORD);
+}
+
+void writeUserSettings(String ssid, String password, String user, String apikey){
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_USER, user, EEPROM_ADDR_LENGTH_USER);
+	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_API_KEY, apikey, EEPROM_ADDR_LENGTH_API_KEY);
+}
+
+void loadUserSettings(String &user, String &apikey){
+	// Retrieve the user particulars from EEPROM on setup  
+	user = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_USER, EEPROM_ADDR_LENGTH_USER);
+ 	apikey = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_API_KEY, EEPROM_ADDR_LENGTH_API_KEY);
+}
+

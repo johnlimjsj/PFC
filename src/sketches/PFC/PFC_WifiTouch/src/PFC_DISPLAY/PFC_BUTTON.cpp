@@ -5,13 +5,16 @@
 
 ButtonSettings PFC_Button::ALPHA_NUM_KEY_LONG = {.width=40, .height=24 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=1};
 ButtonSettings PFC_Button::ALPHA_NUM_KEY = {.width=22, .height=22 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=2};
-ButtonSettings PFC_Button::DEFAULT_BUTTON = {.width=70, .height=35 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=1.9};
+ButtonSettings PFC_Button::DEFAULT_BUTTON_SHORT = {.width=50, .height=30 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=1};
+ButtonSettings PFC_Button::DEFAULT_BUTTON = {.width=70, .height=30 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=1};
 ButtonSettings PFC_Button::DEFAULT_LONG = {.width=100, .height=30 , .outline=ILI9341_DARKCYAN, .fill=ILI9341_BLUE, .textcolor =ILI9341_GREENYELLOW, .textsize=1};
 ButtonSettings PFC_Button::WHITE_BUTTON = {.width=100, .height=40 , .outline=ILI9341_WHITE, .fill=ILI9341_WHITE, .textcolor =ILI9341_BLACK, .textsize=2};
 ButtonSettings PFC_Button::LIST_BUTTON = {.width=170, .height=25 , .outline=ILI9341_WHITE, .fill=ILI9341_WHITE, .textcolor =ILI9341_BLACK, .textsize=2};
 ButtonSettings PFC_Button::INVIS = {.width=70, .height=40 , .outline=ILI9341_WHITE, .fill=ILI9341_WHITE, .textcolor =ILI9341_BLACK, .textsize=2};
 
 String PFC_Button::getValueOnPress(){
+
+  if(!isEnabled) return "";
 
   unsigned long currTime = millis();
   // Factor in a button debounce
@@ -20,10 +23,6 @@ String PFC_Button::getValueOnPress(){
     touch.read();
     int _xpos = touch.getX();
     int _ypos = touch.getY();
-    // Serial.print("x: ");
-    // Serial.print(_xpos);
-    // Serial.print(", y: ");
-    // Serial.println(_ypos);
     if (contains(_xpos, _ypos + _offset)){
       _lastPressedTime = millis();
       return _val; 
@@ -68,11 +67,8 @@ void PFC_Button::drawButtonAsKey(){
 	drawButton();  
 	tft.setTextColor(_textColor);
 	tft.setTextSize(_textSize);
-
 	tft.setCursor(_xCursor, _yCursor);
 	tft.println(_label);
-
 	tft.setCursor(_xCursor2, _yCursor2);
-
 	tft.println(_label2);
 }

@@ -25,9 +25,10 @@ bool PFC_WIFI::connectWiFi(String ssid, String password){
 	while (WiFi.status() != WL_CONNECTED && i*NETWORK_DELAY < NETWORK_TIMEOUT) {
   	delay(NETWORK_DELAY); 
   	Serial.print(".");
+    isConnecting = true;
   	i ++;
 	}
-
+  isConnecting = false;
 	if (WiFi.status() == WL_CONNECTED) {
 		Serial.println("\nWiFi connected: " + ssid);
 		return true;
@@ -121,7 +122,7 @@ void PFC_WIFI::sendDataToServer(String url){
   delay(500);
   if (client2.connect(_server,80)) {
     Serial.println("connected to " + url);   
-    client2.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + SERVER + "\r\n" + "Connection: close\r\n\r\n"); // keep-alive    
+    client2.print(String("GET ") + url + " HTTP/1.1\r\n" + "Host: " + _server + "\r\n" + "Connection: close\r\n\r\n"); // keep-alive    
   }
   unsigned long timeout = millis();
   while (client2.available() == 0) {

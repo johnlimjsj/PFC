@@ -32,6 +32,7 @@
 #define DHTPIN D2
 
 #define BASE_JSON "fields"
+#define WEMOS_ADDR 8
 
 
 
@@ -49,6 +50,9 @@
 
 #define EEPROM_ADDRSTART_API_KEY 90
 #define EEPROM_ADDR_LENGTH_API_KEY 252
+
+#define EEPROM_ADDR_IS_WIFI_CONNECTED 251
+#define EEPROM_ADDR_IS_LOGGED_IN 250
 
 struct WiFiAP {
   String ssid;
@@ -170,5 +174,18 @@ extern void writeSettings(String ssid, String password, String user, String apik
 void loadSettings(String &ssid, String &password, String &user, String &apikey);
 extern void loadSettings(String &ssid, String &password, String &user, String &apikey);
 
+
+void writeWifiSettings(String ssid, String password);
+extern void writeWifiSettings(String ssid, String password);
+
+void loadWifiSettings(String &ssid, String &password);
+extern void loadWifiSettings(String &ssid, String &password);
+
+
+void writeUserSettings(String user, String apikey);
+extern void writeSettings(String user, String apikey);
+
+void loadUserSettings(String &user, String &apikey);
+extern void loadSettings(String &user, String &apikey);
 
 #endif

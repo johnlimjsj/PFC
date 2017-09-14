@@ -1,3 +1,6 @@
+
+// Belongs to Nano
+/*
 Actuator periodControl(Actuator a){
   unsigned long currTime = millis();
   unsigned long onPeriod=a.period*a.dutyCycle;
@@ -19,7 +22,9 @@ Actuator periodControl(Actuator a){
   }
   return a;
 }
+*/
 
+// Belongs to Wemos
 void getSettingsFromServer(){
   String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathSettings());
   if(jsonResponse != ""){
@@ -33,6 +38,7 @@ void getSettingsFromServer(){
   }
 }
 
+// Belongs to Wemos
 bool isManualOverride(){
   String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathManualSettings());
   if(jsonResponse != ""){
@@ -43,6 +49,7 @@ bool isManualOverride(){
   return false;
 }
 
+// Belongs to Wemos
 void manualActuateFromServer(){
   String jsonResponse = pfcwifi.getJsonFromServer(pfcwifi.getPathManualSettings());
   if(jsonResponse != ""){
@@ -60,7 +67,7 @@ void manualActuateFromServer(){
   }
 }
 
-
+// Belongs to Wemos
 void readAndActuate(String jsonResp, String actuatorName){
   JsonObject &r = getParsedJsonObject(jsonResp);
   const char* h = r[actuatorName];
@@ -74,12 +81,4 @@ void readAndActuate(String jsonResp, String actuatorName){
   }
 }
 
-
-
-void initActuatorPins(){
-  pinMode(Led.pin, OUTPUT);  
-  pinMode(Pump.pin, OUTPUT); 
-  pinMode(Feeder.pin, OUTPUT); 
-  pinMode(Fan.pin, OUTPUT);  
-}
 

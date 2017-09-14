@@ -14,7 +14,13 @@ class PFC_WIFI
 
     public:   
 
+        bool isConnecting = false;
+
         PFC_WIFI(){};
+        PFC_WIFI(char* server){
+            _server = server;
+        };
+
         void initPeriodicSettings(PeriodicSettings cs);
 
         void initPathSettings(PathSettings ps, String user, String apiKey);
@@ -34,6 +40,8 @@ class PFC_WIFI
     	String getJsonFromServer(String url);
 
 	   void sendPeriodicRequest(String getStr);
+
+
 
     private:
     // Client Settings such as server and path

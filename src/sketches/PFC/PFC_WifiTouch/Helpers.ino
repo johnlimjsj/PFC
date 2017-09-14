@@ -1,3 +1,4 @@
+/*
 double mapDouble(double in_reading, double in_min, double in_max, double out_min, double out_max, uint8_t mode){
     double out_reading;
     // Saturation limits
@@ -13,6 +14,7 @@ double mapDouble(double in_reading, double in_min, double in_max, double out_min
     }
     return out_reading;
 }
+*/
 
 JsonObject& getParsedJsonObject(String jsonStr){
   int size = jsonStr.length() + 1;
