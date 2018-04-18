@@ -50,6 +50,10 @@ int numInputs = 3;
     printBottomMenu();
     pfcKeyboard.init();
     for(int i=0; i<numInputs; i++){ inputFields[i].setNumRows(2); }    
+    String user, apikey;
+    loadUserSettings(user, apikey);
+    inputFields[USER_INPUT].addTextToEnd(user);
+    inputFields[PASSWORD_INPUT].addTextToEnd(apikey);
   }
 
   void PFC_DISPLAY::initAllButtons(){
@@ -217,6 +221,12 @@ int numInputs = 3;
       printCentralised(_selectedNetwork, 2, 60);
       printCentralised("Password:", 2, 80);
       inputFields[WIFI_PASSWORD_INPUT].drawInput();
+      String ssid, password;
+      loadWifiSettings(ssid, password);
+      inputFields[WIFI_PASSWORD_INPUT].addTextToEnd("password");
+      if (_selectedNetwork == ssid){
+        inputFields[WIFI_PASSWORD_INPUT].addTextToEnd(password);
+      }
       connectWifiButton.drawButtonAsKey();      
     }
 
@@ -228,6 +238,7 @@ int numInputs = 3;
         inputFields[WIFI_PASSWORD_INPUT].focus(true);
         pfcKeyboard.show(false);
       }
+
       String val = connectWifiButton.getValueOnPress();
       if (val != ""){
         String pw = inputFields[WIFI_PASSWORD_INPUT].getText();
@@ -283,8 +294,14 @@ int numInputs = 3;
           pfcKeyboard.show(false);
         }
       }
-      // print the login button
 
+      String val = loginButton.getValueOnPress();
+      if (val != ""){
+        String user = inputFields[USER_INPUT].getText();
+        String apikey = inputFields[PASSWORD_INPUT].getText();
+        writeUserSettings(user, apikey);
+        // make api call to login
+      }
     }
 
   // =====**** 3. Monitor Conditions Screen ****==========

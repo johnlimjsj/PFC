@@ -124,7 +124,7 @@ void loadWifiSettings(String &ssid, String &password){
 	password = EEPROM_retrieveLen_readString(EEPROM_ADDRSTART_WIFI_PASSWORD, EEPROM_ADDR_LENGTH_WIFI_PASSWORD);
 }
 
-void writeUserSettings(String ssid, String password, String user, String apikey){
+void writeUserSettings(String user, String apikey){
 	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_USER, user, EEPROM_ADDR_LENGTH_USER);
 	EEPROM_writeString_storeLength(EEPROM_ADDRSTART_API_KEY, apikey, EEPROM_ADDR_LENGTH_API_KEY);
 }

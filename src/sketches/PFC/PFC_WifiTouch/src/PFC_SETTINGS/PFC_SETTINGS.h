@@ -183,9 +183,9 @@ extern void loadWifiSettings(String &ssid, String &password);
 
 
 void writeUserSettings(String user, String apikey);
-extern void writeSettings(String user, String apikey);
+extern void writeUserSettings(String user, String apikey);
 
 void loadUserSettings(String &user, String &apikey);
-extern void loadSettings(String &user, String &apikey);
+extern void loadUserSettings(String &user, String &apikey);
 
 #endif

@@ -39,7 +39,7 @@ double PFC_SENSOR::_mapDouble(double in_reading, double in_min, double in_max, d
     // Saturation limits
     if(in_reading>in_max){in_reading = in_max;}
     if(in_reading<in_min){in_reading = in_min;}
-    if(in_reading == NULL){Serial.println("null input into the mapping function"); return NULL;};
+    if(in_reading == NULL){return NULL;};
     switch(mode) {     
       // linear mapping
       case LINEAR_MAPPING:{ out_reading = out_min + (double)(out_max - out_min)*(double)((double)(in_reading - in_min)/(in_max - in_min)); break;}

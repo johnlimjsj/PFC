@@ -20,7 +20,7 @@ PFC_SENSOR moisturePFC(320, 855);
 PFC_SENSOR lightPFC(236, 60000);
 PFC_SENSOR humidityPFC(0, 100);
 PFC_SENSOR tempPFC(0, 100);
-PFC_SENSOR phPFC(0, 3.3, 0, 140);
+PFC_SENSOR phPFC(0, 1024, 0, 140);
 
 // pfcactuator(pin, period_milliseconds, dutycycle, activehigh)
 PFC_ACTUATOR pumpPFC(5, 3600000, 0.66, false);
@@ -43,7 +43,7 @@ void setup() {
   pumpPFC.init();
   ledPFC.init();
   fanPFC.init();
-//  dht.begin();
+  dht.begin();
   // Initializing as slave, wrt to the wemos
   Wire.begin(8);                // join i2c bus with address #8
   Wire.onReceive(receiveEvent); // register event
@@ -51,13 +51,17 @@ void setup() {
 
   // Initializing as master, wrt the soil moisture sensor
 //  soilSensorInit();
+  pinMode(5, OUTPUT);
 
   
 }
 
 void loop() {
-  Serial.println("Why are you crashing");
+  analogWrite(5, 120);
+
+  /*
   
+//  Serial.println(controlByte);
   // automatic actuation. manual actuation occurs when an event is received
   
   setSensorReadings();
@@ -65,15 +69,17 @@ void loop() {
   
   storeSensorReadings(&moistureI2CReading, &moisturePFC, PFC_SENSOR::LINEAR_MAPPING);
   storeSensorReadings(&lightI2CReading, &lightPFC, PFC_SENSOR::LINEAR_MAPPING);
-//  storeSensorReadings(&humidityI2CReading, &humidityPFC, PFC_SENSOR::LINEAR_MAPPING);
-//  storeSensorReadings(&tempI2CReading, &tempPFC, PFC_SENSOR::LINEAR_MAPPING);
-//  storeSensorReadings(&phI2CReading, &phPFC, PFC_SENSOR::LINEAR_MAPPING);
+  storeSensorReadings(&humidityI2CReading, &humidityPFC, PFC_SENSOR::LINEAR_MAPPING);
+  storeSensorReadings(&tempI2CReading, &tempPFC, PFC_SENSOR::LINEAR_MAPPING);
+  storeSensorReadings(&phI2CReading, &phPFC, PFC_SENSOR::LINEAR_MAPPING);
   
   if (!isManualActuate){
     pumpPFC.periodControl();
     ledPFC.periodControl();
     fanPFC.periodControl();
   }
+
+  */
 }
 
 
@@ -88,6 +94,7 @@ void requestEvent() {
       break;
     case BYTE_GET_CURR_TEMP:
       toWrite = tempI2CReading.mapped;
+//      Serial.print("temp :"); Serial.println(toWrite);
       break;
     case BYTE_GET_CURR_PH:
       toWrite = phI2CReading.mapped;

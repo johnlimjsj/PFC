@@ -6,10 +6,10 @@
 #include "DHT.h"
 #include "RunningAverage.h"
 
-#define PH_PIN A0
+#define PH_PIN A1
 
 #define DHTTYPE DHT11
-#define DHTPIN 6
+#define DHTPIN 5
 #define ARDUINO_ADDR 8
 
 

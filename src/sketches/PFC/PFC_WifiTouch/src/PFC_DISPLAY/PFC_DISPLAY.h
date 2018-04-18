@@ -16,9 +16,6 @@
 // For touchscreen
 #define TOUCH_CS D2
 #define TOUCH_IRQ D8
-#define TOUCH_CS_SR 5
-#define TOUCH_IRQ_SR 7
-
 
 #define TOUCH_ORIENTATION PORTRAIT
 // For display

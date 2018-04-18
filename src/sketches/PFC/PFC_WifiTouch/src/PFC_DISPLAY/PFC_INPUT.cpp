@@ -20,7 +20,7 @@ void PFC_INPUT_FIELD::addTextToEnd(String text){
 	}
 	else{
 		_text += text;	
-		_numTextCharacters ++;
+		_numTextCharacters += text.length();
 	}	
 }
 

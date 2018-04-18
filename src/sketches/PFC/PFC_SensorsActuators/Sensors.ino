@@ -16,11 +16,18 @@ void setSensorReadings(){
   if (rawLight >= 0) lightPFC.setCurrentRawReading(rawLight);
 
   phPFC.setCurrentRawReading(analogRead(PH_PIN));
-//  float temp = dht.readTemperature();
-//  float hum = dht.readHumidity();
   
-  tempPFC.setCurrentRawReading(34.3);
-  humidityPFC.setCurrentRawReading(33.3);
+  float temp = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  interrupts();
+
+  
+//  Serial.print("temp is"); Serial.println(temp);
+  
+//  float hum = dht.readHumidity();
+
+  tempPFC.setCurrentRawReading(temp);
+  humidityPFC.setCurrentRawReading(humidity);
 }
 
 void storeSensorReadings(ReadingsI2C *_readings, PFC_SENSOR *sensor, int mode){
@@ -31,12 +38,12 @@ void storeSensorReadings(ReadingsI2C *_readings, PFC_SENSOR *sensor, int mode){
   _readings->mapped = mapped;
   _readings->filtered = filtered;
   
-  Serial.print("mapped reading: ");
-  Serial.print(_readings->mapped);
-  Serial.print("raw reading: ");
-  Serial.print(_readings->raw);
-  Serial.println();
-  Serial.print("filtered reading: ");
-  Serial.println(_readings->filtered);
+//  Serial.print("mapped reading: ");
+//  Serial.print(_readings->mapped);
+//  Serial.print("raw reading: ");
+//  Serial.print(_readings->raw);
+//  Serial.println();
+//  Serial.print("filtered reading: ");
+//  Serial.println(_readings->filtered);
 }
 

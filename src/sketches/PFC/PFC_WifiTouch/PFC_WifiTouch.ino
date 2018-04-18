@@ -17,30 +17,21 @@ void setup() {
 
 void loop() { 
   byte moisture = pfcWire.getCurrMoistureFromSlave();
+  Serial.print("moisture: "); Serial.println(moisture);
   byte light = pfcWire.getCurrLightFromSlave();
   byte ph = pfcWire.getCurrPhFromSlave();
-
-
-//  Serial.println(moisture);
-//  Serial.println(light);
-//  Serial.println(ph);
+  byte humidity = pfcWire.getCurrHumidityFromSlave();
+  byte temp = pfcWire.getCurrTempFromSlave();
   
   pfcDisplay.setMoisture((float)moisture);
   pfcDisplay.setLight((float)light);
   pfcDisplay.setPh(((float)ph)/10);
-
+  pfcDisplay.setHumidity((float)humidity);
+  pfcDisplay.setTemperature((float)temp);
   
   pfcDisplay.displayScreenByState();
   pfcDisplay.clickEventsByScreen();
   pfcDisplay.detectScreenSwitch();
-
-  
-
-  
-
-  
-  
-
 }
 
 
